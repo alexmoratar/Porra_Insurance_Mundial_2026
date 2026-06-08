@@ -70,17 +70,22 @@ nav.tabs button:not(.active):hover{color:var(--ink);background:var(--panel2)}
 .row .arrows button:hover:not(:disabled){color:var(--ink);border-color:var(--lime)}
 .row .arrows button:disabled{opacity:.22;cursor:default}
 .glegend{font-size:10.5px;color:var(--muted2);padding:8px 13px;line-height:1.5}
-.bestmatch{padding:11px 13px;border-top:1px solid var(--line);background:rgba(84,184,255,.045)}
-.bm-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--info);font-weight:700;margin-bottom:9px}
-.bm-row{display:flex;align-items:center;gap:8px}
-.bm-row .t{display:flex;align-items:center;gap:6px;flex:1;min-width:0;font-size:12.5px;font-weight:600}
-.bm-row .t.home{justify-content:flex-end;text-align:right}
-.bm-row .t.away{justify-content:flex-start}
-.bm-row .t .nm2{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
-.bm-row .t .fi{font-size:16px}
-.bm-row input{width:44px;text-align:center;font-family:"Anton";font-size:19px;padding:6px 4px;flex-shrink:0;background:var(--bg2);border:1px solid var(--line2);color:var(--ink);border-radius:9px;outline:none}
-.bm-row input:focus{border-color:var(--lime)}
-.bm-row .dash{color:var(--muted2);font-family:"Anton";font-size:16px;flex-shrink:0}
+.matches{padding:11px 13px;border-top:1px solid var(--line);background:rgba(84,184,255,.045)}
+.matches .ml{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--info);font-weight:700;margin-bottom:9px;display:flex;align-items:center;gap:6px}
+.matches .ml .fi{font-size:15px}
+.m3{display:flex;align-items:center;gap:7px;padding:5px 0}
+.m3 .jn{font-size:9px;font-weight:800;color:var(--muted);background:var(--panel3);border:1px solid var(--line2);border-radius:5px;padding:3px 4px;flex-shrink:0;min-width:26px;text-align:center}
+.m3 .jn.best{background:rgba(255,210,63,.18);color:var(--gold);border-color:rgba(255,210,63,.5)}
+.m3 .fi{font-size:15px}
+.m3 input{width:38px;text-align:center;font-family:"Anton";font-size:17px;padding:5px 3px;flex-shrink:0;background:var(--bg2);border:1px solid var(--line2);color:var(--ink);border-radius:8px;outline:none}
+.m3 input:focus{border-color:var(--lime)}
+.m3 .dash{color:var(--muted2);font-family:"Anton";font-size:14px;flex-shrink:0}
+.m3 .opp{flex:1;min-width:0;font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m3 .tm{display:flex;align-items:center;gap:5px;flex:1;min-width:0;font-size:11.5px;font-weight:600}
+.m3 .tm.h{justify-content:flex-end;text-align:right}
+.m3 .tm.a{justify-content:flex-start}
+.m3 .tm .nx{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.m3 .st{flex-shrink:0;font-size:11px}
 label.fld{display:block;font-size:13px;color:var(--ink);margin:0 0 7px;font-weight:600}
 label.fld .s{display:block;font-size:11.5px;color:var(--muted);font-weight:400;margin-top:2px}
 .txt{width:100%;background:var(--bg2);border:1px solid var(--line2);color:var(--ink);border-radius:10px;padding:11px 13px;font-family:"Sora";font-size:14px;outline:none}
@@ -115,7 +120,7 @@ label.fld .s{display:block;font-size:11.5px;color:var(--muted);font-weight:400;m
   <header class="hero rise">
     <div class="brandrow"><span class="kick">Pronósticos · fase de grupos</span><span class="acn">ACN Insurance</span></div>
     <h1 class="display">Porra <span class="y">Mundial</span></h1>
-    <div class="sub">Ordena los 12 grupos, marca tus 8 mejores terceros, predice el resultado del mejor partido de cada grupo y elige tus premios individuales. Al terminar descargas tus datos y los envías según las instrucciones.</div>
+    <div class="sub">Ordena los 12 grupos, marca tus 8 mejores terceros, predice el resultado de 3 partidos por grupo (uno por jornada) y elige tus premios individuales. Al terminar descargas tus datos y los envías según las instrucciones.</div>
     <div class="namebar">
       <label>Tu nombre:</label>
       <input id="pnombre" type="text" maxlength="22" placeholder="Nombre">
@@ -136,9 +141,9 @@ label.fld .s{display:block;font-size:11.5px;color:var(--muted);font-weight:400;m
   <div class="modal">
     <h3>¡Datos descargados! ✅</h3>
     <p>Tu archivo se ha guardado en la carpeta de <b>Descargas</b> de tu navegador.</p>
-    <p>Para participar, <b>envía el archivo entregable</b> siguiendo las instrucciones del correo:</p>
+    <p>Ahora, para participar, solo tienes que <b>subir este archivo al formulario</b> o seguir las instrucciones del Teams <b>Porra Mundial 2026</b>:</p>
     <div class="file" id="modalFile">enviar_al_formulario_….json</div>
-    <p>¿Dudas o algún problema? Escribe a <a href="mailto:alex.morata@accenture.com">alex.morata@accenture.com</a>.</p>
+    <p>Cualquier duda, escribe a <a href="mailto:alex.morata@accenture.com">alex.morata@accenture.com</a>.</p>
     <button class="btn primary" id="modalClose" style="width:100%">Entendido</button>
   </div>
 </div>
@@ -161,7 +166,22 @@ const GD={
  L:[["ENG","Inglaterra"],["CRO","Croacia"],["GHA","Ghana"],["PAN","Panamá"]]
 };
 const ISO={MEX:"mx",RSA:"za",KOR:"kr",CZE:"cz",CAN:"ca",BIH:"ba",QAT:"qa",SUI:"ch",BRA:"br",MAR:"ma",HAI:"ht",SCO:"gb-sct",USA:"us",PAR:"py",AUS:"au",TUR:"tr",GER:"de",CUW:"cw",CIV:"ci",ECU:"ec",NED:"nl",JPN:"jp",SWE:"se",TUN:"tn",BEL:"be",EGY:"eg",IRN:"ir",NZL:"nz",ESP:"es",CPV:"cv",KSA:"sa",URU:"uy",FRA:"fr",SEN:"sn",IRQ:"iq",NOR:"no",ARG:"ar",ALG:"dz",AUT:"at",JOR:"jo",POR:"pt",COD:"cd",UZB:"uz",COL:"co",ENG:"gb-eng",CRO:"hr",GHA:"gh",PAN:"pa"};
-const BEST={A:["MEX","RSA"],B:["SUI","CAN"],C:["BRA","MAR"],D:["USA","TUR"],E:["GER","ECU"],F:["NED","JPN"],G:["BEL","EGY"],H:["ESP","URU"],I:["FRA","NOR"],J:["ARG","AUT"],K:["POR","COL"],L:["ENG","CRO"]};
+/* 3 partidos por grupo (J1,J2,J3). España (H) = sus 3 partidos; el resto, variados con el partido estrella incluido. */
+const MTC={
+ A:[["MEX","RSA"],["MEX","KOR"],["RSA","KOR"]],
+ B:[["CAN","BIH"],["BIH","SUI"],["CAN","SUI"]],
+ C:[["BRA","MAR"],["BRA","HAI"],["MAR","HAI"]],
+ D:[["USA","PAR"],["PAR","TUR"],["USA","TUR"]],
+ E:[["CIV","ECU"],["GER","CIV"],["GER","ECU"]],
+ F:[["NED","JPN"],["NED","SWE"],["JPN","SWE"]],
+ G:[["BEL","EGY"],["BEL","IRN"],["EGY","IRN"]],
+ H:[["ESP","CPV"],["ESP","KSA"],["ESP","URU"]],
+ I:[["FRA","SEN"],["SEN","NOR"],["FRA","NOR"]],
+ J:[["ARG","ALG"],["ARG","AUT"],["ALG","AUT"]],
+ K:[["POR","COD"],["COD","COL"],["POR","COL"]],
+ L:[["ENG","CRO"],["ENG","GHA"],["CRO","GHA"]]
+};
+const STARIDX={A:0,B:2,C:0,D:2,E:2,F:0,G:0,H:2,I:2,J:1,K:2,L:0};
 const GL=Object.keys(GD); const TEAM={};
 GL.forEach(g=>GD[g].forEach(t=>TEAM[t[0]]={name:t[1],group:g}));
 const nm=c=>c&&TEAM[c]?TEAM[c].name:"—";
@@ -169,15 +189,15 @@ function flagEl(code){ const s=document.createElement("span"); if(code&&ISO[code
 
 /* ===================== ESTADO ===================== */
 const S={ name:"", groups:{}, thirds:{}, score:{}, premios:{goleador:"",asistente:"",mvp:"",joven:""} };
-GL.forEach(g=>{ S.groups[g]=GD[g].map(t=>t[0]); S.thirds[g]=false; S.score[g]={h:"",a:""}; });
+GL.forEach(g=>{ S.groups[g]=GD[g].map(t=>t[0]); S.thirds[g]=false; S.score[g]=[{h:"",a:""},{h:"",a:""},{h:"",a:""}]; });
 let tab="grupos";
 const $=s=>document.querySelector(s);
 const el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e;};
 function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),1800);}
 function esc(s){return (s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
 const thirdsCount=()=>GL.filter(g=>S.thirds[g]).length;
-const bothFilled=g=>S.score[g].h!==""&&S.score[g].a!=="";
-const scoresDone=()=>GL.filter(bothFilled).length;
+const matchFilled=(g,j)=>S.score[g][j].h!==""&&S.score[g][j].a!=="";
+const scoresDone=()=>{let n=0;GL.forEach(g=>{for(let j=0;j<3;j++)if(matchFilled(g,j))n++;});return n;};
 const premiosDone=()=>["goleador","asistente","mvp","joven"].every(k=>S.premios[k].trim());
 const W=g=>S.groups[g][0], R=g=>S.groups[g][1], T=g=>S.groups[g][2];
 const pNombre=()=>(($("#pnombre")||{}).value||"").trim();
@@ -188,7 +208,7 @@ function setTabs(){
   document.querySelectorAll("#tabs button").forEach(b=>{
     b.classList.toggle("active",b.dataset.tab===tab);
     let done=false;
-    if(b.dataset.tab==="grupos") done=thirdsCount()===8 && scoresDone()===12;
+    if(b.dataset.tab==="grupos") done=thirdsCount()===8 && scoresDone()===36;
     if(b.dataset.tab==="premios") done=premiosDone();
     b.classList.toggle("done",done&&b.dataset.tab!==tab);
   });
@@ -197,7 +217,7 @@ function updateCounters(){
   const t=thirdsCount(), s=scoresDone();
   const et=document.getElementById("cntT"), es=document.getElementById("cntS");
   if(et){ et.textContent=t+"/8"; et.className="big "+(t===8?"ok":"bad"); }
-  if(es){ es.textContent=s+"/12"; es.className="big "+(s===12?"ok":"bad"); }
+  if(es){ es.textContent=s+"/36"; es.className="big "+(s===36?"ok":"bad"); }
 }
 function view(){
   const v=$("#view"); v.innerHTML="";
@@ -211,13 +231,13 @@ function view(){
 function vGrupos(){
   const box=el("div");
   const head=el("div","card");
-  head.innerHTML='<div class="tag">Paso 1</div><div class="lead">Fase de grupos</div><div class="desc">Ordena los 4 equipos de cada grupo con las flechas (1º y 2º clasifican directo). Marca los <b>8</b> terceros que crees que pasan. Y en cada grupo, predice el <b>resultado exacto</b> del mejor partido (Grupo A = inaugural).</div>';
+  head.innerHTML='<div class="tag">Paso 1</div><div class="lead">Fase de grupos</div><div class="desc">Ordena los 4 equipos de cada grupo con las flechas (1º y 2º clasifican directo). Marca los <b>8</b> terceros que crees que pasan. Y predice el resultado de <b>3 partidos por grupo</b> (uno por jornada): son los del equipo cabeza de grupo, así se ven todos los equipos, e incluyen siempre el partido estrella (⭐). En el Grupo A entra el inaugural.</div>';
   box.append(head);
   box.append(el("div","note",'<b>¿Qué terceros pasan?</b> Clasifican directos los dos primeros de cada grupo (24 equipos). De los 12 terceros, pasan los <b>8 mejores</b>, ordenados por: puntos → diferencia de goles → goles a favor → juego limpio → sorteo.<br><b>Ejemplo:</b> un tercero con 4 puntos pasa por delante de uno con 3. Y si dos terceros empatan a 3 puntos peleando por la última plaza, pasa el de mejor diferencia de goles; si siguen igualados, el de más goles a favor. Marca los 8 que creas que lo consiguen.'));
   const t0=thirdsCount(), s0=scoresDone();
   const cnt=el("div","counter");
   cnt.innerHTML='<div class="stat"><div><div class="lbl">Terceros</div><div class="hint">marca exactamente 8</div></div><div class="big '+(t0===8?'ok':'bad')+'" id="cntT">'+t0+'/8</div></div>'
-   +'<div class="stat"><div><div class="lbl">Resultados</div><div class="hint">1 por grupo</div></div><div class="big '+(s0===12?'ok':'bad')+'" id="cntS">'+s0+'/12</div></div>';
+   +'<div class="stat"><div><div class="lbl">Resultados</div><div class="hint">3 por grupo (1 por jornada)</div></div><div class="big '+(s0===36?'ok':'bad')+'" id="cntS">'+s0+'/36</div></div>';
   box.append(cnt);
   const grid=el("div","groups");
   GL.forEach(g=>{
@@ -244,18 +264,24 @@ function vGrupos(){
       card.append(row);
     });
     card.append(el("div","glegend",'<span style="color:var(--lime)">▮</span> 1º y 2º clasifican · <span style="color:var(--gold)">▮</span> 3º marcado = mejor tercero'));
-    const bm=el("div","bestmatch");
-    const home=BEST[g][0], away=BEST[g][1];
-    bm.append(el("div","bm-label",(g==="A"?"⭐ Partido inaugural · 11 jun":"⭐ Mejor partido del grupo")));
-    const r=el("div","bm-row");
-    const th=el("div","t home"); th.append(el("span","nm2",nm(home))); const fh=flagEl(home); fh.classList.add("fi"); th.append(fh);
-    const ih=el("input"); ih.type="number"; ih.min="0"; ih.max="20"; ih.value=S.score[g].h; ih.setAttribute("aria-label",nm(home));
-    ih.oninput=()=>{ S.score[g].h= ih.value===""?"":Math.max(0,Math.min(20,parseInt(ih.value)||0)); updateCounters(); setTabs(); };
-    const ia=el("input"); ia.type="number"; ia.min="0"; ia.max="20"; ia.value=S.score[g].a; ia.setAttribute("aria-label",nm(away));
-    ia.oninput=()=>{ S.score[g].a= ia.value===""?"":Math.max(0,Math.min(20,parseInt(ia.value)||0)); updateCounters(); setTabs(); };
-    const ta=el("div","t away"); ta.append(el("span","nm2",nm(away))); const fa=flagEl(away); fa.classList.add("fi"); ta.append(fa);
-    r.append(th,ih,el("span","dash","–"),ia,ta);
-    bm.append(r); card.append(bm);
+    const mts=el("div","matches");
+    mts.append(el("div","ml",(g==="H"?"⚽ Los 3 partidos de España":"⚽ 3 partidos del grupo")));
+    MTC[g].forEach((pair,j)=>{
+      const home=pair[0], away=pair[1];
+      const best=(j===STARIDX[g]); const inaug=(g==="A"&&j===0);
+      const r=el("div","m3");
+      r.append(el("span","jn"+(best?" best":""),"J"+(j+1)));
+      const th=el("div","tm h"); th.append(el("span","nx",nm(home))); const fh=flagEl(home); fh.classList.add("fi"); th.append(fh); r.append(th);
+      const ih=el("input"); ih.type="number"; ih.min="0"; ih.max="20"; ih.value=S.score[g][j].h; ih.setAttribute("aria-label",nm(home));
+      ih.oninput=()=>{ S.score[g][j].h= ih.value===""?"":Math.max(0,Math.min(20,parseInt(ih.value)||0)); updateCounters(); setTabs(); };
+      const ia=el("input"); ia.type="number"; ia.min="0"; ia.max="20"; ia.value=S.score[g][j].a; ia.setAttribute("aria-label",nm(away));
+      ia.oninput=()=>{ S.score[g][j].a= ia.value===""?"":Math.max(0,Math.min(20,parseInt(ia.value)||0)); updateCounters(); setTabs(); };
+      r.append(ih, el("span","dash","–"), ia);
+      const ta=el("div","tm a"); const fa=flagEl(away); fa.classList.add("fi"); ta.append(fa); ta.append(el("span","nx",nm(away))); r.append(ta);
+      if(best) r.append(el("span","st","⭐"));
+      mts.append(r);
+    });
+    card.append(mts);
     grid.append(card);
   });
   box.append(grid);
@@ -292,9 +318,9 @@ function buildData(){
   const nombre=pNombre(), apellido=pApellido(); S.name=(nombre+" "+apellido).trim();
   const legend={}; Object.keys(TEAM).forEach(c=>legend[c]=TEAM[c].name);
   const thirdsG=GL.filter(g=>S.thirds[g]);
-  const mejores=GL.map(g=>{
-    const h=Number(S.score[g].h), a=Number(S.score[g].a);
-    return { grupo:g, inaugural:g==="A", local:BEST[g][0], visitante:BEST[g][1], golesLocal:h, golesVisitante:a, signo: h>a?"1":(h<a?"2":"X") };
+  const partidos=[];
+  GL.forEach(g=>{ MTC[g].forEach((pair,j)=>{ const h=Number(S.score[g][j].h), a=Number(S.score[g][j].a);
+      partidos.push({ grupo:g, jornada:j+1, local:pair[0], visitante:pair[1], golesLocal:h, golesVisitante:a, signo: h>a?"1":(h<a?"2":"X"), esMejor:(j===STARIDX[g]), inaugural:(g==="A"&&j===0) }); });
   });
   return {
     v:4, type:"mundial-2026-grupos", name:S.name, nombre, apellido, fecha:new Date().toISOString(),
@@ -302,7 +328,7 @@ function buildData(){
     clasificados:{ primeros:GL.map(g=>W(g)), segundos:GL.map(g=>R(g)) },
     terceros:{ grupos:thirdsG, equipos:thirdsG.map(g=>T(g)) },
     cuartoPuesto:GL.map(g=>S.groups[g][3]),
-    mejoresPartidos:mejores,
+    partidos:partidos,
     premios:{ goleador:S.premios.goleador.trim(), asistente:S.premios.asistente.trim(), mvp:S.premios.mvp.trim(), joven:S.premios.joven.trim() },
     legend
   };
@@ -311,15 +337,16 @@ function summaryHTML(d){
   const line=(k,v)=>'<div style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid #e5e9f0"><div style="color:#667;min-width:150px">'+k+'</div><div style="font-weight:600">'+v+'</div></div>';
   let groups="";
   GL.forEach(g=>{ groups+='<div style="margin:6px 0"><b>Grupo '+g+':</b> '+d.groups[g].map((c,i)=>(i+1)+". "+nm(c)+(d.terceros.equipos.indexOf(c)>=0?" ⭐":"")).join(" · ")+'</div>'; });
-  let mejores="";
-  d.mejoresPartidos.forEach(m=>{ mejores+=line("Grupo "+m.grupo+(m.inaugural?" (inaugural)":""), nm(m.local)+"  "+m.golesLocal+" – "+m.golesVisitante+"  "+nm(m.visitante)); });
+  let mtchs=""; let curG=null;
+  d.partidos.forEach(m=>{ if(m.grupo!==curG){ curG=m.grupo; mtchs+='<div style="font-weight:700;margin:10px 0 2px">Grupo '+m.grupo+'</div>'; }
+    mtchs+=line("J"+m.jornada+(m.esMejor?" ⭐":"")+(m.inaugural?" (inaugural)":""), nm(m.local)+"  "+m.golesLocal+" – "+m.golesVisitante+"  "+nm(m.visitante)); });
   return '<!doctype html><meta charset="utf-8"><title>Porra de '+esc(d.name)+'</title>'+
    '<body style="font-family:system-ui,Arial,sans-serif;max-width:720px;margin:30px auto;padding:0 18px;color:#16233a">'+
    '<h1 style="font-size:26px;margin:0">Porra Mundial — ACN Insurance</h1>'+
    '<p style="color:#667;margin:4px 0 18px">Fase de grupos · pronóstico de <b>'+esc(d.name)+'</b></p>'+
    '<h3>Clasificación de cada grupo <span style="font-weight:400;color:#889;font-size:13px">(⭐ = tercero que pasa)</span></h3>'+groups+
-   '<h3 style="margin-top:18px">Resultados del mejor partido</h3>'+
-   '<p style="color:#667;font-size:13px;margin:0 0 6px">Marcador exacto previsto para el partido destacado de cada grupo:</p>'+mejores+
+   '<h3 style="margin-top:18px">Resultados de los partidos (3 por grupo)</h3>'+
+   '<p style="color:#667;font-size:13px;margin:0 0 6px">⭐ = partido estrella. Marcador exacto previsto:</p>'+mtchs+
    '<h3 style="margin-top:18px">Premios individuales</h3>'+
    line("⚽ Máximo goleador", esc(d.premios.goleador||"—"))+
    line("🅰️ Máximo asistente", esc(d.premios.asistente||"—"))+
@@ -332,7 +359,7 @@ function checks(){
   return [
     {ok:!!pNombre()&&!!pApellido(), t:"Has puesto nombre y apellido"},
     {ok:thirdsCount()===8, t:"Has marcado exactamente 8 terceros ("+thirdsCount()+"/8)"},
-    {ok:sc===12, t:"Has puesto los 12 resultados del mejor partido ("+sc+"/12)"},
+    {ok:sc===36, t:"Has puesto los 36 resultados, 3 por grupo ("+sc+"/36)"},
     {ok:premiosDone(), t:"Has rellenado los 4 premios individuales"}
   ];
 }
